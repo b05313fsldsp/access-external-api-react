@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-// import axios from "axios";
+//import axios from "axios";
 
-const gitHubUrl = "https://api.github.com/users/deekshasharma";
-// const aaaUrl = "https://api.adviceslip.com/advice";
+// const gitHubUrl = "https://api.github.com/users/deekshasharma";
+const kusUrl = "http://10.3.1.194:8081/api/tutorials";
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -14,22 +14,19 @@ function App() {
   }, []);
 
   const getGitHubUserWithFetch = async () => {
-    const response = await fetch(gitHubUrl);
+    const response = await fetch(kusUrl);
     const jsonData = await response.json();
-    //a.
-    console.log(jsonData);
     setUserData(jsonData);
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h2>GitHub User Data</h2>
+        <h2>TQS Data</h2>
       </header>
       <div className="user-container">
-        <h5 className="info-item">{userData.name}</h5>
-        <h5 className="info-item">{userData.location}</h5>
-
+        <h5 className="info-item">{title}</h5>
+        <h5 className="info-item">{SPN1761}</h5>
       </div>
     </div>
   );
