@@ -1,0 +1,53 @@
+# [Day 04 - 計數器] 把 HTML 寫在 JavaScript 中！？ - JSX 的使用
+
+###### CodePen example 
+
+```
+<!-- HTML -->
+
+<div id="root"></div>
+
+```
+
+###### 在 JavaScript 的地方則是使用了 ReactDOM.render 這個語法，在 ReactDOM.render() 的第一個參數放的就是 JSX 的內容，這裡看起來其實就和直接放入 HTML 一樣；第二個參數則是說明這個 JSX 的內容要被放到原本 HTML 中的哪個位置內，這裡就是放到 #root 這個元素上：
+
+```
+// JavaScript
+
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
+);
+
+```
+###### 什麼是 JSX - 許多人~~（其實是我）~~一開始聽到學 React 之前要先學 JSX 就望之卻步，默默想說那還是以後再來看好了...。但現在回頭來看什麼是 JSX，以上面的例子來說，這個部分就是 JSX：
+
+```
+  <h1>Hello, world!</h1>,
+
+```
+
+###### 也可以看到這個 HelloWorld 樣板中，已經預先載入兩個 JavaScript 套件，分別是 React 和 ReactDOM 這兩個套件。其中 React 這個套件就可去解讀 JSX 的內容，而 ReactDOM 則可以讓所撰寫的內容，放置到特定 HTML DOM 中的元素上。
+
+```
+// React
+
+https://unpkg.com/react/umd/react.development.js
+
+---
+
+// ReactDOM
+
+https://unpkg.com/react-dom/umd/react-dom.development.js
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,234 @@
+# 一定會用到的 JavaScript 語法
+```
+使用關鍵字 + MDN
+```
+###### log 樣板字面值（Template literals／Template strings）for JavaScript 表達式（expression）
+```
+// 帶入變數
+const favoritePhone = 'iPhone';
+
+console.log(`I want to buy the ${favoritePhone}`); // I want to buy the iPhone
+```
+###### 也可以帶入其他表達式：
+```
+// 帶入加減數值運算
+const favoritePhone = 'Galaxy Note';
+const currentPrice = 31900;
+
+console.log(`The ${favoritePhone} is ${currentPrice} now.`);
+// The Galaxy Note is 31900 now.
+
+
+console.log(`The ${favoritePhone} is ${currentPrice * 0.7} now.`);
+// The Galaxy Note is 22330 now.
+```
+# expressions - 「表達式」簡單來說就是當你給它一段程式碼去執行後，它會直接回傳一個值給你。
+
+# 箭頭函式（arrow functions）- ES6 中另一種更簡便來定義函式的語法。傳統上我們會這樣定義 JavaScript 
+```
+function showIphonePrice(currentPrice) {
+  return `The iPhone is ${currentPrice} now.`;
+}
+
+console.log(showIphonePrice(26900));
+// The iPhone is 26900 now.
+```
+# ES6 中則可以用箭頭函式讓它變得更精簡。箭頭函式的使用會把函式的參數放在前面的小括號 () 中，中間搭配 =>，原本函式執行的內容則放在最後的大括號 {} 中：
+```
+const showIphonePrice = (currentPrice) => {
+  return `The iPhone is ${currentPrice} now.`;
+};
+
+console.log(showIphonePrice(26900));
+// The iPhone is 26900 now.
+```
+# 如果在箭頭函式中只會回傳一個值而不需要做其他的操作的話，甚至可以精簡成這樣：
+```
+const showIphonePrice = currentPrice => `The iPhone is ${currentPrice} now.`;
+
+console.log(showIphonePrice(26900));
+// The iPhone is 26900 now.
+```
+###### 物件屬性名稱縮寫（Shorthand property names）- 定義了三個變數，分別是 deviceName、currentPrice 和 storage，現在想要把這三個變數當成物件 galaxyNote 的屬性值，原本會這樣寫：
+```
+const deviceName = 'Galaxy Note';
+const currentPrice = 30900;
+const storage = '256G';
+
+const galaxyNote = {
+  deviceName: deviceName,
+  currentPrice: currentPrice,
+  storage: storage,
+};
+
+console.log(galaxyNote.deviceName);    // Galaxy Note
+```
+# 但由於物件的「屬性名稱」和當成屬性值的「變數名稱」相同，因此可以縮寫成這樣子：
+```
+// 當物件的「屬性名稱」和當成屬性值的「變數名稱」相同時，可以縮寫成這樣
+const deviceName = 'Galaxy Note';
+const currentPrice = 30900;
+const storage = '256G';
+
+const galaxyNote = {
+  deviceName,
+  currentPrice,
+  storage,
+};
+
+console.log(galaxyNote.deviceName);   // Galaxy Note
+```
+###### 解構賦值（Destructuring assignment）- 達到快速建立變數並取值的動作。 當從伺服器拿到的資料是帶有一大包內容的物件，而我們只需要用到該物件裡面的其中一些屬性，這時就很適合使用解構賦值。 現在從伺服器拿到一大包和商品名稱有關的資料：
+
+```
+// 一個帶有非常多資料的物件
+const product = {
+  name: 'iPhone',
+  image: 'https://i.imgur.com/b3qRKiI.jpg',
+  description:
+    '全面創新的三相機系統，身懷萬千本領，卻簡練易用。電池續航力突飛猛進，前所未見。令你大為驚豔的晶片更加碼機器學習技術，並突破智慧型手機所能成就的極限。第一部威力強大，Pro 如其名的 iPhone，全新登場。',
+  brand: {
+    name: 'Apple',
+  },
+  aggregateRating: {
+    ratingValue: '4.6',
+    reviewCount: '120',
+  },
+  offers: {
+    priceCurrency: 'TWD',
+    price: '26,900',
+  },
+};
+
+```
+
+# 如果現在要建立新的變數，並在變數中代入該商品的名稱（name）和描述（description），傳統上可能會這樣做：
+```
+/* 一般從物件取出屬性值，並建立新變數的做法 */
+const name = product.name;
+const description = product.description;
+```
+# 在使用物件的解構賦值之後，可以達到快速建立變數並取值的動作：
+```
+/* 物件的解構賦值 */
+
+// 自動產生名為 name 和 description 的變數
+// 並把 product 物件內的 name 和 description 當作變數的值
+const { name, description } = product;
+
+console.log(name);         // iPhone
+console.log(description);  // 全面創新的三相機系統，身懷萬千本領，卻簡練易用。...
+```
+
+###### 進階：透過解構賦值取出物件中的物件 - 同時你可能好奇，像現在 product 物件中還有 offers 這個物件，如果要取得 offers 物件內的 price 一樣可以透過解構賦值取出嗎？ # 是可以的，寫法會像這樣，意思就是要定義一個名為 price 的變數，它的值會是product.offers.price。但要注意的是，現在就沒有新增 offers 這個變數了：
+```
+const {
+  offers: { price },
+} = product;
+
+console.log(price);    // 26,900
+console.log(offers);   // ReferenceError: offers is not defined
+```
+# 如果同時需要建立 offers 和 price 這兩個變數，有時會這樣寫。先透過解構賦值先取出 offers，接著一樣透過解構賦值再從 offers 中取出 price：
+```
+const { offers } = product;    // 透過解構賦值先從 product 取出 offers
+const { price } = offers;      // 透過解構賦值再從 offers 中取出 price
+
+console.log(price);   // 26,900
+console.log(offers);  // { priceCurrency: 'TWD', price: '26,900' }
+```
+
+###### 陣列的解構賦值 - 陣列同樣也有解構賦值的寫法，這在 React Hooks 中經常被使用。 直接看程式碼會比較清楚，假設伺服器回傳一個陣列中包含各種廠牌的智慧型手機，而且陣列中元素的順序是照當年度銷售排行：
+
+```
+const mobileBrands = [
+  'Samsung', 'Apple', 'Huawei', 'Oppo',
+  'Vivo', 'Xiaomi', 'LG', 'Lenovo', 'ZTE'
+];
+```
+# 如果想要取得當年度排行前三名的手機，並建立成變數，傳統上可能需要這樣寫：
+```
+/* 一般從陣列取出元素值並建立新變數的做法 */
+const best = mobileBrands[0];    // Samsung
+const second = mobileBrands[1];  // Apple
+const third = mobileBrands[2];   // Huawei
+```
+# 這時同樣可以使用解構賦值來達到快速建立變數並取值的動作，陣列的解構賦值會依據陣列內元素的順序把值取出來，像是這樣：
+```
+/* 陣列的解構賦值 */
+
+// 自動建立名為 best、second、third 的變數
+// 並把 mobileBrands 陣列中的第一、第二和第三個元素當作變數的值帶入
+const [best, second, third] = mobileBrands;
+
+console.log(best);     // Samsung
+console.log(second);   // Apple
+console.log(third);    // Huawei
+```
+
+###### 展開語法和其餘語法（Spread Syntax/Rest Syntax）- 最後一個同樣經常在 React 中會使用到的語法，稱作「展開語法（Spread Syntax）」和「其餘語法（Rest Syntax）」。這兩個語法的使用時機不同，但在寫程式時是用相同的文字來表達，也就是 ...。 沒錯，就是 ...，這個 ... 可以同樣可以使用於物件和陣列上。 展開語法（spread syntax）
+展開語法最常用在要「複製一個物件，並為該物件添加一些屬性時」，舉例來說，我們先定義智慧型手機的基本屬性：
+```
+// 定義一個物件
+const mobilePhone = {
+  name: 'mobile phone',
+  publishedYear: '2019',
+};
+```
+# 接下來如果要複製 mobilePhone 這個物件變成一個新的物件（iPhone），同時添加一些屬性時，可以使用 ... 展開語法：
+```
+/* 展開語法（spread syntax） */
+
+const iPhone = {
+  ...mobilePhone,
+  name: 'iPhone',
+  os: 'iOS',
+};
+
+console.log(iPhone);  // { name: 'iPhone', publishedYear: '2019', os: 'iOS' }
+```
+# 展開語法同樣可以用來複製陣列，並在新的陣列中添加元素，像是這樣：
+```
+/* 展開語法（spread syntax） */
+
+const mobilesOnSale = ['Samsung', 'Apple', 'Huawei'];
+const allMobiles = [...mobilesOnSale, 'Oppo', 'Vivo', 'Xiaomi'];
+
+console.log(allMobiles); // [ 'Samsung', 'Apple', 'Huawei', 'Oppo', 'Vivo', 'Xiaomi' ]
+```
+
+###### 其餘語法（rest syntax）- 其餘語法和展開語法的寫法一樣，都是 ...，但是使用時機不太一樣，如果說展開語法像是「解壓縮」，那麼其餘語法就像是「壓縮」。它可以把在解構賦值中沒有被取出來的物件屬性或陣列元素都放到一個壓縮包裡。 舉例來說，在前面談到物件解構賦值的時候，從伺服器拿到一大包資料：
+```
+const product = {
+  name: 'iPhone',
+  image: 'https://i.imgur.com/b3qRKiI.jpg',
+  description:
+    '全面創新的三相機系統，身懷萬千本領，卻簡練易用。電池續航力突飛猛進，前所未見。令你大為驚豔的晶片更加碼機器學習技術，並突破智慧型手機所能成就的極限。第一部威力強大，Pro 如其名的 iPhone，全新登場。',
+  brand: {
+    name: 'Apple',
+  },
+  aggregateRating: {
+    ratingValue: '4.6',
+    reviewCount: '120',
+  },
+  offers: {
+    priceCurrency: 'TWD',
+    price: '26,900',
+  },
+};
+
+```
+# 雖然我們取出了所需的資料，但其餘剩下沒有取出來的物件屬性仍想要取出來稍後使用，這時就可以使用其餘語法，把除了 name 和 description 剩下沒有取出來的物件屬性，都放到取名為 other 的變數中（變數名稱可以自己取），如此 other 就會是 product 物件中，扣除掉 name 和 description 屬性後的所有其餘資料：
+```
+/* 物件解構賦值時使用其餘語法 */
+const { name, description, ...other } = product;
+console.log(other);
+
+// {
+//   image: 'https://i.imgur.com/b3qRKiI.jpg',
+//   brand: { name: 'Apple' },
+//   aggregateRating: { ratingValue: '4.6', reviewCount: '120' },
+//   offers: { priceCurrency: 'TWD', price: '26,900' }
+// }
+
+```
