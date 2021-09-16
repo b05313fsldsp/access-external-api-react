@@ -5,15 +5,40 @@ import React, { useEffect, useState } from "react";
 
 const kusUrl = "http://10.3.1.194:8081/api/tutorials";
 
-// component - 箭頭函式（arrow function）- 建立一個名為 Counter 的 React 組件
-const Counter = () => (
+// JavaScript
+// 定義 inline-style 行內樣式
+const shadow = {
+  boxShadow: '0 0 10px 10px #eaeaea',
+  padding: 20, // 省略 px，樣式會自動帶入單位變成 '20px'
+};
+
+// STEP 1: 從 React 物件中取出 `useState` 方法
+// const { useState } = React;
+
+const Counter = () => {
+  
+  // let count = 256;
+  // STEP 2:
+  // 透過 useState 建立 `count` 這個變數，預設值設為 256
+  // 並取得修改變數的 `setCount` 方法
+  const [count, setCount] = useState(256);
+
+  return (
     <div className="container">
-      <div className="chevron chevron-up" />
-      <div className="number">256</div>
+      // dc-
+      <div className="chevron chevron-up" 
+      onClick={() => {
+          //count = count + 1;
+           // STEP 3: 使用 setCount 方法來改變 count 的值
+          setCount(count + 1);
+          console.log(`current Count is ${count}`);
+        }}
+      />
+      <div className="number">{count}</div>
       <div className="chevron chevron-down" />
     </div>
-);
-
+  );
+};
 
 function App() {
 
@@ -23,38 +48,12 @@ function App() {
   const currentPrice = 31900;
   const discount = 0.85;
 
-  const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    getGitHubUserWithFetch();
-    // getGiHubUserWithAxios();
-  }, []);
-
-  const getGitHubUserWithFetch = async () => {
-    const response = await fetch(kusUrl);
-    const jsonData = await response.json();
-    setUserData(jsonData);
-  };
-
-  console.log(userData.SN);
+  console.log(deviceName);
 
   return (
-    <div className="App">   
-      <header className="App-header">
-
-      </header>
-
-      <div className="Container">
-        <h2>TQS Data</h2>
-        <h2>{userData.SN}</h2>
-      </div>
-        
-      <div className="user-container">
-        <h5 className="info-item">{userData.SN}</h5>
-        <h5 className="info-item">{userData.SPN1761}</h5>
-      </div>
-
-      <div className="Container">
+    <div className="App"> 
+      <div className="Container" style={shadow}>
+      {console.log('render')}  
         <h1>hello, {word}</h1>
         // JSX 中可以在 {} 內放入表達式（expression）
         <h1>現在 {deviceName} 的售價是 {currentPrice * discount}</h1>
