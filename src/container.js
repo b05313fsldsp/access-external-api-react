@@ -5,6 +5,15 @@ import React, { useEffect, useState } from "react";
 
 const kusUrl = "http://10.3.1.194:8081/api/tutorials";
 
+// component - 箭頭函式（arrow function）- 建立一個名為 Counter 的 React 組件
+const Counter = () => (
+    <div className="container">
+      <div className="chevron chevron-up" />
+      <div className="number">256</div>
+      <div className="chevron chevron-down" />
+    </div>
+);
+
 function container() {
 
   const word = 'React';
@@ -13,20 +22,6 @@ function container() {
   const currentPrice = 31900;
   const discount = 0.85;
 
-  const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    getGitHubUserWithFetch();
-    // getGiHubUserWithAxios();
-  }, []);
-
-  const getGitHubUserWithFetch = async () => {
-    const response = await fetch(kusUrl);
-    const jsonData = await response.json();
-    setUserData(jsonData);
-  };
-
-  console.log(userData.SN);
 
   return (
     <div className="Container">
@@ -35,12 +30,11 @@ function container() {
       <h1>hello, {word}</h1>
       // JSX 中可以在 {} 內放入表達式（expression）
       <h1>現在 {deviceName} 的售價是 {currentPrice * discount}</h1>
-      <h2>{userData.SN}</h2>
       </header>
 
-      <div class="chevron chevron-up" />
-      <div class="number">256</div>
-      <div class="chevron chevron-down" />
+      <Counter />
+      <Counter />
+      <Counter />
     </div>
 
   );
