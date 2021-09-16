@@ -15,6 +15,7 @@ const shadow = {
 // STEP 1: 從 React 物件中取出 `useState` 方法
 // const { useState } = React;
 
+
 const Counter = () => {
   
   // let count = 256;
@@ -26,16 +27,28 @@ const Counter = () => {
   return (
     <div className="container">
       // dc-
-      <div className="chevron chevron-up" 
-      onClick={() => {
-          //count = count + 1;
-           // STEP 3: 使用 setCount 方法來改變 count 的值
+      {console.log('render')}  
+      <div
+        className="chevron chevron-up"
+        style={{
+          visibility: count >= 999 && 'hidden',
+        }}
+        onClick={() => {
           setCount(count + 1);
-          console.log(`current Count is ${count}`);
         }}
       />
+
       <div className="number">{count}</div>
-      <div className="chevron chevron-down" />
+
+      <div
+        className="chevron chevron-down"
+        style={{
+          visibility: count <= 999 && 'hidden',
+        }}
+        onClick={() => {
+          setCount(count - 1);
+        }}
+      />
     </div>
   );
 };
@@ -53,7 +66,6 @@ function App() {
   return (
     <div className="App"> 
       <div className="Container" style={shadow}>
-      {console.log('render')}  
         <h1>hello, {word}</h1>
         // JSX 中可以在 {} 內放入表達式（expression）
         <h1>現在 {deviceName} 的售價是 {currentPrice * discount}</h1>
