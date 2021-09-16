@@ -28,7 +28,7 @@
  * counter design is from dribbble (https://dribbble.com/shots/5539678-Stepper-VI)
  * chevron icons are from fontAwesome (https://fontawesome.com/icons/chevron-down?style=solid)
 **/
-html,
+
 body {
   margin: 0;
   padding: 0;
